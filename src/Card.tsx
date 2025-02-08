@@ -12,7 +12,7 @@ export default function CardBlock(
     return (<div className="card">
         <article>
             <div className="card-content">
-                <img src="https://picsum.photos/seed/1/400/400" alt={card.title} />
+                <img src={card.image} alt={card.title} />
                 <div className="content">
                     <h3>{card.title}</h3>
                     <p className="fade-out">
