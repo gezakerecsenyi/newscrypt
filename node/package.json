@@ -1,0 +1,21 @@
+{
+  "name": "newscrypt",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@types/html-pdf-node": "^1.0.2",
+    "eslint-config-node": "^4.1.0",
+    "extract-json-from-string": "^1.0.1",
+    "html-pdf-node": "^1.0.8",
+    "openai": "^4.83.0",
+    "typescript": "^4.9.5"
+  },
+  "eslintConfig": {
+    "extends": [
+      "node"
+    ]
+  },
+  "scripts": {
+    "run-server": "npx tsc && node ./src/index.js"
+  }
+}
