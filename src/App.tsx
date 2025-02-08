@@ -4,9 +4,11 @@ import Header from "./Header";
 import Footer from "./Footer";
 import {Debate} from "./types";
 import Card from './Card';
+import Modal from "./Modal";
 
 function App() {
     const [debates, setDebates] = useState<Debate[]>(window.debates);
+    const [currentCard, setCurrentCard] = useState(window.debates[0].id);
 
     useEffect(() => {
         let isScrolling: NodeJS.Timeout;
@@ -31,20 +33,31 @@ function App() {
                 if (closestCard) {
                     const y = closestCard.getBoundingClientRect().top + window.scrollY - headerHeight;
                     window.scrollTo({top: y, behavior: 'smooth'});
+                    setCurrentCard(closestCard.id);
                 }
             }, 100);
         });
     }, []);
+
+    const [modalDebate, setModalDebate] = useState<Debate | null>(null);
 
     return (
         <div className="App">
             <Header/>
             <main>
                 {
-                    debates.map(debate => <Card card={debate} />)
+                    debates.map(debate => <Card
+                        card={debate}
+                        key={debate.id}
+                        openModal={() => setModalDebate(debate)}
+                    />)
                 }
             </main>
             <Footer />
+
+            {
+                modalDebate && <Modal debate={modalDebate} closeModal={() => setModalDebate(null)} />
+            }
         </div>
     );
 }

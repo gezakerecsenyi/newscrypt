@@ -3,6 +3,7 @@ export interface Comment {
     text: string;
     onPost: string;
     isReply: boolean;
+    id: string;
 }
 
 export interface Debate {
