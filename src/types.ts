@@ -1,4 +1,4 @@
-interface Comment {
+export interface Comment {
     fromUsername: string;
     text: string;
     onPost: string;
