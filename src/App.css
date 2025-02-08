@@ -331,11 +331,10 @@ h3 {
     cursor: pointer;
 }
 
-footer .email {
-    font-size: 0.8em;
-    text-decoration: none;
+footer {
+    font-size: 0.9em;
 }
 
-footer .credits {
-    font-size: 0.8em;
+footer .email {
+    text-decoration: none;
 }
