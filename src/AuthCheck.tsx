@@ -95,7 +95,7 @@ export default function AuthCheck(
         const faces = await faceapi.extractFaces(faceapi.createCanvasFromMedia(videoEl), [result]);
         const descriptor = await faceapi.computeFaceDescriptor(faces[0]);
 
-        const hyperplanes = generateHyperplanes(16, 12345);
+        const hyperplanes = generateHyperplanes(8, 12345);
         const lsh = new LSH(hyperplanes);
         const bin = lsh.hash(descriptor as Float32Array);
 
