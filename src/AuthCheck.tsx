@@ -121,6 +121,7 @@ export default function AuthCheck(
         setLoading(false);
         if (resp.success && authState) {
             authState[1](resp.user);
+            closeModal();
         } else if (resp.userExists) {
             setPassword('');
             setError(true);
