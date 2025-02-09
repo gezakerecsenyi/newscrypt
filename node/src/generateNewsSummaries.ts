@@ -129,7 +129,7 @@ export default async function generateNewsSummaries(): Promise<NewsSummary[]> {
     return await resolveInTurn(debateFlows.map(async (debate, index) => ({
         report: await getTranslatorSwitch(debate),
         title: await getTranslatorSwitch(synthesisedReports[index].topic),
-        image: articleData[parseFloat(researchSpec.topics[index].articles[0].replace(/[^0-9]+/g, ''))].image_url,
+        image: articleData[parseFloat(researchSpec.topics[index].articles[Math.floor(Math.random() * researchSpec.topics[index].articles.length)].replace(/[^0-9]+/g, ''))].image_url,
         citations: tweetSummaries[index].tweetsReviewed,
     })));
 }

@@ -57,6 +57,15 @@ const checkAuth = async (req: express.Request) => {
     return null;
 }
 
+function shuffleArray(array: any[]) {
+    for (var i = array.length - 1; i >= 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
+}
+
 app.get('/', (req, res) => {
     if (!req.cookies.locale) {
         res.cookie('locale', 'en');
@@ -77,6 +86,9 @@ app.get('/', (req, res) => {
             debates.rows[i].sources = sources.rows;
             debates.rows[i].comments = commentsHere.rows;
         }));
+
+        const debateList = debates.rows;
+        shuffleArray(debateList);
 
         return res.send(
             data.replace(
@@ -177,7 +189,7 @@ app.get('/', (req, res) => {
                                 ]
                             }
                         ],*/
-                        debates: debates.rows,
+                        debates: debateList,
                         currentUser: user,
                     }
                 )

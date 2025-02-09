@@ -1,5 +1,7 @@
 # NewsCrypt
 
+## Fancy-encrypted chat forum paired with adversarial agentic AI debate analyser
+
 ## [We're live on https://newscrypt.xyz.](https://newscrypt.xyz/)
 
 ### Check out our introductory talk [here](https://drive.google.com/file/d/1H5CLXefKrCkjH0XLXt9Et8sOOPzzZzjm/view?usp=drive_link).
