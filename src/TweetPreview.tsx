@@ -12,7 +12,7 @@ export default function TweetPreview(
     return (
         <a href={tweet.url} target="_blank" rel="noopener noreferrer" className="tweet">
             <h3>@{tweet.username}</h3>
-            <p>{tweet.text}</p>
+            <p>{decodeURIComponent(tweet.text)}</p>
         </a>
     )
 }
