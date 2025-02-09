@@ -34,20 +34,9 @@ function App() {
                     const y = closestCard.getBoundingClientRect().top + window.scrollY - headerHeight;
                     window.scrollTo({top: y, behavior: 'smooth'});
                     setCurrentCard(closestCard.id);
-                    window.setTimeout(() => {
-                        window.history.pushState({}, '', `#${closestCard.id}`);
-                    }, 200);
                 }
             }, 100);
         });
-    }, []);
-
-    useEffect(() => {
-        window.setTimeout(() => {
-            if (window.location.hash) {
-                document.getElementById(window.location.hash)?.scrollIntoView({behavior: 'smooth'});
-            }
-        }, 400)
     }, []);
 
     const [modalDebate, setModalDebate] = useState<Debate | null>(null);
