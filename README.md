@@ -17,7 +17,7 @@ both Tweets and articles from the news, are fed into these agents, so as to ensu
 rational decision-making and evidence. We then present this in a user-friendly format on a website with a combined
 retro-futuristic aesthetic.
 
-![Screenshot 2025-02-09 133504.png](Screenshot%202025-02-09%20133504.png)
+![slopplan.png](slopplan.png)
 
 The USP of our site compared to other submissions is our commitment to openness: we don't accept that the most popular
 accounts should automatically be the decision-makers on issues. We therefore introduce a forum feature on the website,
@@ -26,6 +26,8 @@ way of interacting with the forum, by having users sign in with their biometric 
 means of authentication and of liveness detection simultaneously (and also just a crazy-fun login flow!). This is
 achieved through locality-sensitive hashing and multiple rounds of encryption, in order to prevent biometrics from ever
 actually reaching the server.
+
+![Screenshot 2025-02-09 133504.png](Screenshot%202025-02-09%20133504.png)
 
 We're really proud of what we've built, and hope you find it cool too. Check it out on newscrypt.onrender.com or
 newscrypt.xyz.
