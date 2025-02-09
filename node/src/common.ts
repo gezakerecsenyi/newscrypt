@@ -13,7 +13,7 @@ export const getHashedPassword = (password: string) => {
     return shasum.digest('hex');
 }
 
-export const postgresHost = `postgresql://newscrypt_user:XMQR8vO4IUC4KTqlRCCO4snUiia4Z4yL@dpg-cuk9fi52ng1s73bfjtsg-a/newscrypt`;
+export const postgresHost = `dpg-cuk9fi52ng1s73bfjtsg-a`;
 export const postgresConfig = {
     user: 'newscrypt_user',
     host: postgresHost,
