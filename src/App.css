@@ -89,7 +89,7 @@ article img {
 .card-content {
     display: flex;
     align-items: flex-start;
-    height: 100%;
+    height: 85%;
 }
 
 footer {
