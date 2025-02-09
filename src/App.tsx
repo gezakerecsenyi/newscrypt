@@ -36,7 +36,7 @@ function App() {
                     setCurrentCard(closestCard.id);
                     window.setTimeout(() => {
                         window.location.hash = closestCard.id;
-                    }, 200);
+                    }, 400);
                 }
             }, 100);
         });
@@ -47,7 +47,7 @@ function App() {
             if (window.location.hash) {
                 document.getElementById(window.location.hash)?.scrollIntoView({behavior: 'smooth'});
             }
-        }, 200)
+        }, 400)
     }, []);
 
     const [modalDebate, setModalDebate] = useState<Debate | null>(null);
