@@ -2,6 +2,7 @@ import { User, Debate } from "./types";
 import { FormEvent, useCallback, useState } from "react";
 import AuthCheck from "./AuthCheck";
 import TweetPreview from "./TweetPreview";
+import useLocale from "./useLocale";
 
 interface Props {
     card: Debate;
@@ -38,7 +39,7 @@ export default function CardBlock(
                 body: JSON.stringify(
                     {
                         text: chatValue,
-                        onpost: card.id,
+                        onpost: card.debateid,
                         isreply: isReply,
                     }
                 )
@@ -54,14 +55,14 @@ export default function CardBlock(
                         username: authState![0]!.username,
                         isreply: isReply,
                         text: chatValue,
-                        onpost: card.id,
+                        onpost: card.debateid,
                         id: Math.random().toString(),
                     }
                 ]
             );
             setChatValue('');
         }
-    }, [chatValue, isReply, authState]);
+    }, [chatValue, isReply, authState, card]);
 
     const [showAuthCheck, setShowAuthCheck] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -90,8 +91,10 @@ export default function CardBlock(
         setChatValue(newChatValue);
     }, [chatValue]);
 
+    const localizer = useLocale();
+
     return (
-        <div className="card" id={card.id}>
+        <div className="card" id={card.debateid}>
             {showAuthCheck && <AuthCheck closeModal={handleAuthCompletion} authState={authState} />}
             <article>
                 <div className="card-content">
@@ -103,13 +106,13 @@ export default function CardBlock(
                                 onClick={() => setActiveTab('summary')}
                                 className={activeTab === 'summary' ? 'active' : ''}
                             >
-                                Summary
+                                {localizer('Summary')}
                             </button>
                             <button
                                 onClick={() => setActiveTab('tweets')}
                                 className={activeTab === 'tweets' ? 'active' : ''}
                             >
-                                Tweets
+                                {localizer('Tweets')}
                             </button>
                         </div>
                         {activeTab === 'summary' && (
@@ -141,12 +144,12 @@ export default function CardBlock(
                         <div className="input-block">
                             <input
                                 type="text"
-                                placeholder="Type a message..."
+                                placeholder={localizer('Type a message...')}
                                 value={chatValue}
                                 onInput={handleChatChange}
                                 disabled={loading}
                             />
-                            <button onClick={requestSendMessage} disabled={loading}>Send</button>
+                            <button onClick={requestSendMessage} disabled={loading}>{localizer('Send')}</button>
                         </div>
                     </div>
                 </div>

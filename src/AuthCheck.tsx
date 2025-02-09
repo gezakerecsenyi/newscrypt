@@ -2,6 +2,7 @@ import {useCallback, useEffect, useRef, useState} from "react";
 import * as faceapi from 'face-api.js';
 import {generateHyperplanes, LSH} from "./encryptLSH";
 import {User} from "./types";
+import useLocale from "./useLocale";
 
 interface Props {
     closeModal: () => void;
@@ -188,6 +189,8 @@ export default function AuthCheck(
         }
     }, [username, faceHash, authState]);
 
+    const localizer = useLocale();
+
     return (
         <div className='modal face-check-modal'>
             <div className="modal-content">
@@ -196,17 +199,17 @@ export default function AuthCheck(
                     showUsernamePage ? (
                         <>
                             <h2>
-                                Welcome! Choose your display name.
+                                {localizer('Welcome! Choose your display name.')}
                             </h2>
 
                             <p>
-                                Choose any name you feel comfortable using publicly.
+                                {localizer('Choose any name you feel comfortable using publicly.')}
                             </p>
 
                             <div className='input-block'>
                                 <input
                                     className={error ? 'error' : ''}
-                                    placeholder='Enter your username.'
+                                    placeholder={localizer('Enter your username.')}
                                     value={username}
                                     onInput={(e) => setUsername(e.currentTarget.value)}
                                     disabled={loading}
@@ -216,14 +219,14 @@ export default function AuthCheck(
                                     onClick={submitUsername}
                                     disabled={loading || noSubmit}
                                 >
-                                    Submit
+                                    {localizer('Submit')}
                                 </button>
                             </div>
                         </>
                     ) : (
                         <>
                             <h2>
-                                Sign in with your face.
+                                {localizer('Sign in with your face.')}
                             </h2>
 
                             <div className='video-container'>
@@ -253,7 +256,7 @@ export default function AuthCheck(
                                 <input
                                     className={error ? 'error' : ''}
                                     type='password'
-                                    placeholder='Enter or choose your passphrase...'
+                                    placeholder={localizer('Enter or choose your passphrase.')}
                                     value={password}
                                     onInput={(e) => setPassword(e.currentTarget.value)}
                                     disabled={loading}
@@ -263,7 +266,7 @@ export default function AuthCheck(
                                     onClick={handleSubmit}
                                     disabled={loading || noSubmit}
                                 >
-                                    Submit
+                                    {localizer('Submit')}
                                 </button>
                             </div>
                         </>

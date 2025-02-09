@@ -5,7 +5,6 @@ import express from 'express';
 import bodyParser from 'body-parser';
 
 import {Pool, QueryResult} from 'pg';
-import {createHash} from 'crypto';
 import * as crypto from 'node:crypto';
 
 import cookies from 'cookie-parser';
@@ -75,13 +74,13 @@ app.get('/', (req, res) => {
             return res.status(500).send('Internal server error. :(');
         }
 
-        const debates = await asyncQuery(`SELECT * FROM debates INNER JOIN debates_i18n ON debates.id = debates_i18n.fromdebate WHERE language = '${req.cookies.locale || 'en'}';`);
+        const debates = await asyncQuery(`SELECT * FROM debates INNER JOIN debates_i18n ON debates.debateid = debates_i18n.fromdebate WHERE language = '${req.cookies.locale || 'en'}';`);
         let user = await checkAuth(req);
 
         await Promise.all(debates.rows.map(async (debate, i) => {
-            const commentsHere = await asyncQuery(`SELECT * FROM comments INNER JOIN users ON comments.fromuser = users.id INNER JOIN comments_i18n ON comments.id = comments_i18n.fromcomment WHERE onpost = '${debate.id}' AND language = '${req.cookies.locale || 'en'}';`);
-            const sources = await asyncQuery(`SELECT * FROM debate_source WHERE onpost = '${debate.id}';`);
-            debates.rows[i].sources = commentsHere.rows;
+            const commentsHere = await asyncQuery(`SELECT * FROM comments INNER JOIN users ON comments.fromuser = users.id INNER JOIN comments_i18n ON comments.id = comments_i18n.fromcomment WHERE onpost = '${debate.debateid}' AND language = '${req.cookies.locale || 'en'}';`);
+            const sources = await asyncQuery(`SELECT * FROM debate_source WHERE onpost = '${debate.debateid}';`);
+            debates.rows[i].sources = sources.rows;
             debates.rows[i].comments = commentsHere.rows;
         }));
 

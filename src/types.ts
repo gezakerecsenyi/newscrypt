@@ -12,7 +12,7 @@ export interface Debate {
     title: string;
     report: string;
     image: string;
-    id: string;
+    debateid: string;
     comments: Comment[];
     sources: TwitterPost[];
 }

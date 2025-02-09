@@ -4,7 +4,7 @@ GRANT ALL ON SCHEMA public TO postgres;
 GRANT ALL ON SCHEMA public TO public;
 
 CREATE TABLE debates (
-  id VARCHAR PRIMARY KEY,
+  debateid VARCHAR PRIMARY KEY,
   image VARCHAR
 );
 
@@ -13,7 +13,7 @@ CREATE TABLE debates_i18n (
   title VARCHAR,
   report VARCHAR,
   language VARCHAR,
-  fromdebate VARCHAR REFERENCES debates (id)
+  fromdebate VARCHAR REFERENCES debates (debateid)
 );
 
 CREATE TABLE users (
@@ -26,7 +26,7 @@ CREATE TABLE users (
 CREATE TABLE comments (
   id VARCHAR PRIMARY KEY,
   isreply BOOL,
-  onpost VARCHAR REFERENCES debates (id),
+  onpost VARCHAR REFERENCES debates (debateid),
   fromuser VARCHAR REFERENCES users (id)
 );
 
@@ -52,7 +52,7 @@ CREATE TABLE user_tokens (
 
 CREATE TABLE debate_source (
   id VARCHAR PRIMARY KEY,
-  onpost VARCHAR REFERENCES debates (id),
+  onpost VARCHAR REFERENCES debates (debateid),
   username VARCHAR,
   text VARCHAR
 );

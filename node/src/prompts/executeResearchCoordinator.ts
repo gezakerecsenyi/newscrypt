@@ -7,8 +7,13 @@ export interface ExpertSpec {
     roleDescription: string;
 }
 
+export interface TopicSpec {
+    title: string;
+    articles: string[];
+}
+
 export interface ResearchCoordinatorResponse {
-    topics: string[];
+    topics: TopicSpec[];
     experts: ExpertSpec[];
 }
 
@@ -20,9 +25,27 @@ You should write 4 instruction paragraphs for each of your chosen team members, 
 
 The titles of your three stories should be quite specific. For instance, instead of "Recent crypto market crash", consider something more like "XRP and Dogecoin drop". Make sure your story titles are specific and distinct from each other. 
 
-Format your response as a JSON object, with keys \`topics\` (an array of strings) and \`experts\` (an array of objects, each with keys \`roleName\` and \`roleDescription\`).`
+Format your response as a JSON object, with keys \`topics\` (an array of objects, each with keys \`title\` and \`articles\` (an array of strings with the FILE NAMES of the one or two most relevant articles)), and \`experts\` (an array of objects, each with keys \`roleName\` and \`roleDescription\`).
 
-const firstMessage = `Find attached news articles. Please provide your instruction paragraphs for four chosen experts (including a ‘Crypto Expert’ and a ‘Political Editor’, and two others), providing your response as JSON.`
+\`\`\`
+interface ExpertSpec {
+    roleName: string;
+    roleDescription: string;
+}
+
+interface TopicSpec {
+    title: string;
+    articles: string[];
+}
+
+interface ResearchCoordinatorResponse { // Your response should be adherent to the typing of ResearchCoordinatorResponse.
+    topics: TopicSpec[];
+    experts: ExpertSpec[];
+}
+\`\`\`
+`
+
+const firstMessage = `Find attached news articles. Please provide your instruction paragraphs for four chosen experts (including a ‘Crypto Expert’ and a ‘Political Editor’, and two others), providing your response as JSON, including topic names and the file names of the most relevant articles.`
 
 export default async function executeResearchCoordinator(files: Buffer[]): Promise<ResearchCoordinatorResponse> {
     const response = await queryLLMAgent(

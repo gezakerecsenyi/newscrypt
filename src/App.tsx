@@ -8,7 +8,7 @@ import Modal from "./Modal";
 
 function App() {
     const [debates, setDebates] = useState<Debate[]>(window.data.debates);
-    const [currentCard, setCurrentCard] = useState(window.data.debates[0]?.id || '');
+    const [currentCard, setCurrentCard] = useState(window.data.debates[0]?.debateid || '');
 
     useEffect(() => {
         let isScrolling: NodeJS.Timeout;
@@ -49,7 +49,7 @@ function App() {
                 {
                     debates.map(debate => <Card
                         card={debate}
-                        key={debate.id}
+                        key={debate.debateid}
                         openModal={() => setModalDebate(debate)}
                         authState={authState}
                     />)

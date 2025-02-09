@@ -30,7 +30,7 @@ async function asyncQuery(query: string): Promise<QueryResult<any>> {
 generateNewsSummaries().then(async function (summaries) {
     for (let summary of summaries) {
         const id = crypto.randomUUID();
-        await asyncQuery(`INSERT INTO debates (id, image) VALUES ('${id}', '${summary.image}');`);
+        await asyncQuery(`INSERT INTO debates (debateid, image) VALUES ('${id}', '${summary.image}');`);
         for (const key of Object.keys(summary.report) as (keyof TranslatorSwitch)[]) {
             const translationId = crypto.randomUUID();
             await asyncQuery(`INSERT INTO debates_i18n (id, language, fromdebate, report, title) VALUES ('${translationId}', '${key}', '${id}', '${rfc3986EncodeURIComponent(summary.report[key])}', '${rfc3986EncodeURIComponent(summary.title[key])}');`);
