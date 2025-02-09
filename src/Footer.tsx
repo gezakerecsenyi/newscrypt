@@ -10,7 +10,7 @@ export default function Footer() {
                 <span className="blinking-cursor">|</span>
             </p>
             <p className='credits'>
-                {localizer('Created by Geza Kerecsenyi and Alex Barron at ETH Oxford 2025. Published under MIT.')}
+                {localizer('Created by Geza Kerecsenyi and Alex Barron at ETH Oxford 2025. Published under MIT.')} <a href='https://github.com/gezakerecsenyi/newscrypt' target='_blank'>GitHub</a>
             </p>
         </footer>
     )
