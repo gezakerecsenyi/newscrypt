@@ -6,6 +6,8 @@
 
 ### Check out our introductory talk [here](https://drive.google.com/file/d/1H5CLXefKrCkjH0XLXt9Et8sOOPzzZzjm/view?usp=drive_link).
 
+_As with any project developed in around 36 hours by just two people, NewsCrypt is not entirely 100% bug free... or even close to it. But we're hoping that by watching our introductory talk you'll understand where we're coming from and why we believe our idea is revolutionary!_
+
 ![Screenshot 2025-02-09 133256.png](Screenshot%202025-02-09%20133256.png)
 
 Our project is a submission to **Torus' Twitter Debate Analyser** and to the **Main Track cryptography competition**. Therefore, the main premise of the site is a breakdown of
