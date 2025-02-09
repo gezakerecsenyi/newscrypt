@@ -40,7 +40,7 @@ generateNewsSummaries().then(async function (summaries) {
 
         for (let tweet of summary.citations) {
             const tweetId = crypto.randomUUID();
-            await asyncQuery(`INSERT INTO debate_source (id, onPost, username, text) VALUES ('${tweetId}', '${id}', '${tweet.user.username}', '${rfc3986EncodeURIComponent(tweet.text)}');`);
+            await asyncQuery(`INSERT INTO debate_source (id, onPost, username, text, url) VALUES ('${tweetId}', '${id}', '${tweet.user.username}', '${rfc3986EncodeURIComponent(tweet.text)}', '${tweet.url}');`);
         }
     }
 });

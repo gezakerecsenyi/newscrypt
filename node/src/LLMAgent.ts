@@ -5,7 +5,7 @@ import {debug, debuggerLog} from "./config";
 const openai = new OpenAI(
     {
         baseURL: 'https://api.openai.com/v1',
-        apiKey: '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'
+        apiKey: process.env.OPENAI_KEY,
     }
 );
 

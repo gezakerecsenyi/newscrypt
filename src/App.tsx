@@ -44,7 +44,7 @@ function App() {
 
     return (
         <div className="App">
-            <Header/>
+            <Header authState={authState} />
             <main>
                 {
                     debates.map(debate => <Card

@@ -1,11 +1,5 @@
 import OpenAI from "openai";
 
-// const openai = new OpenAI(
-//     {
-//         baseURL: 'https://api.deepseek.com',
-//         apiKey: 'sk-e9527052ec2844f48d48d6283a1bfc51'
-//     }
-// );
 import {TextContentBlock} from "openai/resources/beta/threads";
 import {debug, debuggerLog, promptCache} from "./config";
 import LLMAgent from "./LLMAgent"; // Native Node Module

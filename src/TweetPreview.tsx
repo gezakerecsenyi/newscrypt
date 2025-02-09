@@ -1,7 +1,7 @@
-import {TwitterPost} from "../node/src/queryTwitter";
+import {DebateSource} from "./types";
 
 interface Props {
-    tweet: TwitterPost;
+    tweet: DebateSource;
 }
 
 export default function TweetPreview(
@@ -11,7 +11,7 @@ export default function TweetPreview(
 ) {
     return (
         <a href={tweet.url} target="_blank" rel="noopener noreferrer" className="tweet">
-            <h3>@{tweet.user.username}</h3>
+            <h3>@{tweet.username}</h3>
             <p>{tweet.text}</p>
         </a>
     )

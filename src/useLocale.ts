@@ -72,6 +72,12 @@ const i18n = {
         "de": "Geben Sie Ihren Benutzernamen ein.",
         "es": "Introduce tu nombre de usuario.",
         "zh": "输入您的用户名。"
+    },
+    "Sign out": {
+        "fr": "Déconnexion",
+        "de": "Abmelden",
+        "es": "Cerrar sesión",
+        "zh": "退出登录"
     }
 } as const;
 

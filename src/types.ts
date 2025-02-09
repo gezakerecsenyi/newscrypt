@@ -8,13 +8,19 @@ export interface Comment {
     id: string;
 }
 
+export interface DebateSource {
+    username: string;
+    text: string;
+    url: string;
+}
+
 export interface Debate {
     title: string;
     report: string;
     image: string;
     debateid: string;
     comments: Comment[];
-    sources: TwitterPost[];
+    sources: DebateSource[];
 }
 
 export interface User {

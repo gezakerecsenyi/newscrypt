@@ -54,5 +54,6 @@ CREATE TABLE debate_source (
   id VARCHAR PRIMARY KEY,
   onpost VARCHAR REFERENCES debates (debateid),
   username VARCHAR,
-  text VARCHAR
+  text VARCHAR,
+  url VARCHAR
 );

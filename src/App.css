@@ -535,3 +535,15 @@ input.error {
 .tweets a:hover {
     text-decoration: underline;
 }
+.signout-float {
+    position: absolute;
+    top: 10px;
+    right: 30px;
+    font-family: inherit;
+    background: none;
+    outline: none;
+    border: none;
+    color: white;
+    text-decoration: underline;
+    cursor: pointer;
+}
