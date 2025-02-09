@@ -293,7 +293,8 @@ app.post('/create', async (req, res) => {
 });
 
 app.use(
-    express.static(path.resolve(__dirname, '../../build'), {maxAge: '30d'})
+    express.static(path.resolve(__dirname, '../../build'), {maxAge: '30d'}),
+    express.static(path.resolve(__dirname, '../../build/static'), {maxAge: '30d'}),
 );
 
 app.listen(PORT, () => {
