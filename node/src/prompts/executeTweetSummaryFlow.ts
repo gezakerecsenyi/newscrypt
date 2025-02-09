@@ -119,9 +119,11 @@ You can brainstorm, but your response should end with a JSON with keys \`searchQ
  - Reactions regarding current affairs/news on this topic
  - The consensus of Twitter (if there is one)
 
-Your report should be around 500 words. **Quote specific Tweets where applicable** and make sure to **name the Tweeters by their @.** Do NOT use JSON, just write some paragraphs.
+Your report should be around 500 words - AT LEAST three paragraphs. **Quote specific Tweets where applicable** and make sure to **name the Tweeters by their @.** Do NOT use JSON, just write in paragraphs. BE SPECIFIC in outlining the particular arguments for either side, as though in a debate.
 
-Begin your report with: "Report on Twitter activity: ${report.topic}"`
+Begin your report with: "Report on Twitter activity: ${report.topic}".
+
+At the end of your report, start a new section, which MUST begin with "Relevant Tweets:". Under here, list the poster and Tweet contents of the ten most relevant Tweets, in your opinion, to the topic of ${report.topic}. DO NOT use JSON or analyse your choices; just list the poster's @ and Tweet text.`
         }
     );
     const finalSummary = ((await agent.run()).data[0].content[0] as TextContentBlock).text.value;

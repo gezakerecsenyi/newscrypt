@@ -1,0 +1,46 @@
+DROP SCHEMA public CASCADE;
+CREATE SCHEMA public;
+GRANT ALL ON SCHEMA public TO postgres;
+GRANT ALL ON SCHEMA public TO public;
+
+CREATE TABLE debates (
+  id VARCHAR PRIMARY KEY,
+  report VARCHAR,
+  image VARCHAR,
+  title VARCHAR
+);
+
+CREATE TABLE users (
+  id VARCHAR PRIMARY KEY,
+  username VARCHAR,
+  passwordHash VARCHAR,
+  faceHash VARCHAR
+);
+
+CREATE TABLE comments (
+  id VARCHAR PRIMARY KEY,
+  isReply BOOL,
+  text VARCHAR,
+  onPost VARCHAR REFERENCES debates (id),
+  fromUser VARCHAR REFERENCES users (id)
+);
+
+CREATE TABLE prev_faces (
+  id VARCHAR PRIMARY KEY,
+  faceHash VARCHAR,
+  fromUser VARCHAR REFERENCES users (id)
+);
+
+CREATE TABLE user_tokens (
+  id VARCHAR PRIMARY KEY,
+  token VARCHAR,
+  fromUser VARCHAR REFERENCES users (id),
+  createdAt INTEGER
+);
+
+CREATE TABLE debate_source (
+  id VARCHAR PRIMARY KEY,
+  onPost VARCHAR REFERENCES debates (id),
+  username VARCHAR,
+  text VARCHAR
+);
