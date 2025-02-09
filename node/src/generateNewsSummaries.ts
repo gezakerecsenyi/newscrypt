@@ -1,4 +1,3 @@
-import getSitePDF from "./getSitePDF";
 import executeResearchCoordinator from "./prompts/executeResearchCoordinator";
 import {debug, debuggerLog} from "./config";
 import queryNews from "./queryNews";
@@ -79,11 +78,17 @@ export default async function generateNewsSummaries(): Promise<NewsSummary[]> {
             "locale": "za"
         }
     ] : (await resolveInTurn(newsQueries.map(query => queryNews(query))))
-        .map(e => e.data)
-        .flat()
-        .filter((e, i, a) => i === a.findIndex(t => t.url === e.url));
+                            .map(e => e.data)
+                            .flat()
+                            .filter((e, i, a) => i === a.findIndex(t => t.url === e.url));
     debuggerLog('got news');
-    const articlePDFs = await resolveInTurn(articleData.map(data => getSitePDF(data.url)));
+
+    // const articlePDFs = await resolveInTurn(articleData.map(data => getSitePDF(data.url)));
+    const articlePDFs = await resolveInTurn(
+        articleData.map(
+            async data => Buffer.from(await (fetch(data.url).then(e => e.text())) as string, 'utf-8')
+        )
+    );
     debuggerLog('fetched websites');
 
     const researchSpec = await executeResearchCoordinator(articlePDFs);

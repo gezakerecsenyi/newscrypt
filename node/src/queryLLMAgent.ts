@@ -9,7 +9,7 @@ export default async function queryLLMAgent(
     agentName: string,
     agentPrompt: string,
     files: Buffer[],
-    fileExtension: string = 'pdf',
+    fileExtension: string = 'txt',
     filenamePrefix: string = '',
     debugIdentifier?: string,
 ) {

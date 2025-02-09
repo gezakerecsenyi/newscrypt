@@ -17,7 +17,7 @@ export default async function executeResearchExpert(files: Buffer[], expertSpec:
         'Niche Expert Researcher',
         systemPrompt,
         files,
-        'pdf',
+        'txt',
         'article_',
         expertSpec.roleName,
     );
