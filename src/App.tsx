@@ -2,8 +2,8 @@ import React, {useEffect, useState} from 'react';
 import './App.css';
 import Header from "./Header";
 import Footer from "./Footer";
-import {Debate} from "./types";
-import Card from './Card';
+import {Auth, Debate} from "./types";
+import Card from './CardBlock';
 import Modal from "./Modal";
 
 function App() {
@@ -40,6 +40,7 @@ function App() {
     }, []);
 
     const [modalDebate, setModalDebate] = useState<Debate | null>(null);
+    const authState = useState<Auth | null>(null);
 
     return (
         <div className="App">
@@ -50,6 +51,7 @@ function App() {
                         card={debate}
                         key={debate.id}
                         openModal={() => setModalDebate(debate)}
+                        authState={authState}
                     />)
                 }
             </main>

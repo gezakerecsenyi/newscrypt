@@ -13,3 +13,9 @@ export interface Debate {
     id: string;
     comments: Comment[];
 }
+
+export interface Auth {
+    username: string;
+    password: string;
+    faceHash: string;
+}

@@ -1,15 +1,18 @@
-import {Debate} from "./types";
+import {Auth, Debate} from "./types";
 import {FormEvent, useCallback, useState} from "react";
+import AuthCheck from "./AuthCheck";
 
 interface Props {
     card: Debate;
     openModal?: () => void;
+    authState?: [Auth | null, (state: Auth | null) => void]
 }
 
 export default function CardBlock(
     {
         card,
-        openModal
+        openModal,
+        authState,
     }: Props
 ) {
     const [chatValue, setChatValue] = useState('');
@@ -17,8 +20,16 @@ export default function CardBlock(
         setChatValue(e.currentTarget.value);
     }, []);
 
+    const [showAuthCheck, setShowAuthCheck] = useState(false)
+    const sendMessage = useCallback(async () => {
+        if (!authState![0]) {
+            setShowAuthCheck(true);
+        }
+    }, [chatValue]);
+
     return (
         <div className="card" id={card.id}>
+            { showAuthCheck && <AuthCheck closeModal={() => setShowAuthCheck(false)} /> }
             <article>
                 <div className="card-content">
                     <img src={card.image} alt={card.title} onClick={openModal}/>
@@ -39,14 +50,14 @@ export default function CardBlock(
                                 <strong>{comment.fromUsername}:</strong> {comment.text}
                             </p>))}
                         </div>
-                        <div className="chat-input">
+                        <div className="input-block">
                             <input
                                 type="text"
                                 placeholder="Type a message..."
                                 value={chatValue}
                                 onInput={handleChatChange}
                             />
-                            <button>Send</button>
+                            <button onClick={sendMessage}>Send</button>
                         </div>
                     </div>
                 </div>

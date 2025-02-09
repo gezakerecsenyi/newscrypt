@@ -214,12 +214,12 @@ h3 {
 }
 
 .modal-content {
-    background-color: #fefefe;
+    background-color: #0c0c0c;
     padding: 20px;
     border: 1px solid #888;
     width: 80%;
     max-width: 800px;
-    color: #000;
+    color: white;
     overflow: hidden;
     height: 75%;
 }
@@ -266,7 +266,7 @@ h3 {
 
 .close:hover,
 .close:focus {
-    color: black;
+    color: #545454;
     text-decoration: none;
     cursor: pointer;
 }
@@ -307,14 +307,15 @@ h3 {
     background: #87ceeb;
 }
 
-.chat-input {
+.input-block {
     display: flex;
     align-items: center;
 }
 
-.chat-input input {
+.input-block input {
     flex: 1;
-    padding: 10px;
+    height: 40px;
+    padding: 0 10px;
     border: 1px solid #dbe1e7;
     border-radius: 5px;
     background-color: #1e1e1e;
@@ -322,8 +323,9 @@ h3 {
     margin-right: 10px;
 }
 
-.chat-input button {
-    padding: 10px 20px;
+.input-block button {
+    padding: 0 20px;
+    height: 40px;
     border: none;
     border-radius: 5px;
     background-color: #add8e6;
@@ -337,4 +339,22 @@ footer {
 
 footer .email {
     text-decoration: none;
+}
+
+.modal video {
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+.modal h2 {
+    margin-top: 5px;
+    color: white;
+}
+
+.face-check-modal .modal-content {
+    height: auto;
+}
+
+.modal .card {
+    border: none;
 }
