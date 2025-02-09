@@ -34,6 +34,9 @@ function App() {
                     const y = closestCard.getBoundingClientRect().top + window.scrollY - headerHeight;
                     window.scrollTo({top: y, behavior: 'smooth'});
                     setCurrentCard(closestCard.id);
+                    window.setTimeout(() => {
+                        window.location.hash = closestCard.id;
+                    }, 200);
                 }
             }, 100);
         });

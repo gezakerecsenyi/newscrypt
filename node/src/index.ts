@@ -216,7 +216,7 @@ const logIn = async (faceHash: string, password: string, res: any) => {
 }
 
 app.post('/auth', async (req, res) => {
-    const user = await logIn(req.body.faceHash, req.body.password, res);
+    const user = await logIn(req.body.facehash, req.body.password, res);
     if (typeof user === 'number') {
         res.send(JSON.stringify(
             {
