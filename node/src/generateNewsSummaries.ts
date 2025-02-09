@@ -8,6 +8,7 @@ import executeTweetSummaryFlow, {TweetSummaryResponse} from "./prompts/executeTw
 import executeDebateFlow from "./prompts/executeDebateFlow";
 import {existsSync, readFileSync, writeFileSync} from 'fs';
 import {TwitterPost} from "./queryTwitter";
+import getTranslatorSwitch, {TranslatorSwitch} from "./prompts/executeTranslatorSwitch";
 
 async function resolveInTurn<T>(promises: Promise<T>[], sync = true): Promise<T[]> {
     if (sync) {
@@ -23,9 +24,9 @@ async function resolveInTurn<T>(promises: Promise<T>[], sync = true): Promise<T[
 }
 
 export interface NewsSummary {
-    report: string;
+    report: TranslatorSwitch;
     image: string;
-    title: string;
+    title: TranslatorSwitch;
     citations: TwitterPost[];
 }
 
@@ -120,10 +121,10 @@ export default async function generateNewsSummaries(): Promise<NewsSummary[]> {
         return await executeDebateFlow(summary, synthesisedReports[index]);
     }));
 
-    return debateFlows.map((debate, index) => ({
-        report: debate,
-        title: synthesisedReports[index].topic,
+    return await resolveInTurn(debateFlows.map(async (debate, index) => ({
+        report: await getTranslatorSwitch(debate),
+        title: await getTranslatorSwitch(synthesisedReports[index].topic),
         image: articleData[index].image_url,
         citations: tweetSummaries[index].tweetsReviewed,
-    }));
+    })));
 }

@@ -41,6 +41,7 @@ Your job as the journalist will be to produce a write-up on the debate. Aim for 
  - Match their arguments to the points raised by Twitter
  - Compare this to the expert literature on the topic
  - Draw a conclusion about which side won the debate
+ - NOT use Markdown or headings
  - NOT be ambiguous or use vague terms such as "some believe" or "necessary effect" - always explain in relation to the social media landscape
  - NOT name Karim or Andreja, to protect their identities. Refer to them as "The Twitter proposition" and "The Twitter opposition" instead.
  - NOT use references/citations in your answer: DO use quotations, but describe the source of these in text, rather than by linking a citation

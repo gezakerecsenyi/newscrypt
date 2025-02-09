@@ -1,6 +1,14 @@
 import logo from './logo.png';
+import {useCallback, useState} from "react";
+import Cookies from "js-cookie";
 
 export default function Header() {
+    const [locale, setLocale] = useState(Cookies.get('locale') || 'en');
+    const updateLanguage = useCallback((language: string) => {
+        Cookies.set('locale', language, {expires: 10000});
+        document.location.reload();
+    }, []);
+
     return (
         <header>
             <div className="logo-container">
@@ -12,7 +20,10 @@ export default function Header() {
                     src="https://img.icons8.com/ios-filled/50/000000/globe.png"
                      alt="Language Selector"
                 />
-                <select>
+                <select
+                    onChange={(e) => updateLanguage(e.target.value)}
+                    value={locale}
+                >
                     <option value="en">EN</option>
                     <option value="es">ES</option>
                     <option value="fr">FR</option>

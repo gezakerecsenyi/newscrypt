@@ -2,6 +2,7 @@ import generateNewsSummaries from './generateNewsSummaries';
 import {Pool, QueryResult} from 'pg';
 import crypto from 'node:crypto';
 import {rfc3986EncodeURIComponent} from "./common";
+import {TranslatorSwitch} from "./prompts/executeTranslatorSwitch";
 
 const pool = new Pool(
     {
@@ -29,7 +30,12 @@ async function asyncQuery(query: string): Promise<QueryResult<any>> {
 generateNewsSummaries().then(async function (summaries) {
     for (let summary of summaries) {
         const id = crypto.randomUUID();
-        await asyncQuery(`INSERT INTO debates (id, report, image, title) VALUES ('${id}', '${rfc3986EncodeURIComponent(summary.report)}', '${summary.image}', '${rfc3986EncodeURIComponent(summary.title)}');`);
+        await asyncQuery(`INSERT INTO debates (id, image) VALUES ('${id}', '${summary.image}');`);
+        for (const key of Object.keys(summary.report) as (keyof TranslatorSwitch)[]) {
+            const translationId = crypto.randomUUID();
+            await asyncQuery(`INSERT INTO debates_i18n (id, language, fromdebate, report, title) VALUES ('${translationId}', '${key}', '${id}', '${rfc3986EncodeURIComponent(summary.report[key])}', '${rfc3986EncodeURIComponent(summary.title[key])}');`);
+        }
+
         console.log('inserted', id);
 
         for (let tweet of summary.citations) {

@@ -1,8 +1,10 @@
+import {TwitterPost} from "../node/src/queryTwitter";
+
 export interface Comment {
-    fromUsername: string;
+    username: string;
     text: string;
-    onPost: string;
-    isReply: boolean;
+    onpost: string;
+    isreply: boolean;
     id: string;
 }
 
@@ -12,24 +14,25 @@ export interface Debate {
     image: string;
     id: string;
     comments: Comment[];
+    sources: TwitterPost[];
 }
 
 export interface User {
     id: string;
     username: string;
-    passwordHash: string;
+    passwordhash: string;
     faceHash: string;
 }
 
 export interface PrevFace {
     id: string;
-    fromUser: string;
-    faceHash: string;
+    fromuser: string;
+    facehash: string;
 }
 
 export interface UserToken {
     id: string;
-    fromUser: string;
+    fromuser: string;
     token: string;
-    createdAt: number;
+    createdat: number;
 }

@@ -5,42 +5,54 @@ GRANT ALL ON SCHEMA public TO public;
 
 CREATE TABLE debates (
   id VARCHAR PRIMARY KEY,
+  image VARCHAR
+);
+
+CREATE TABLE debates_i18n (
+  id VARCHAR PRIMARY KEY,
+  title VARCHAR,
   report VARCHAR,
-  image VARCHAR,
-  title VARCHAR
+  language VARCHAR,
+  fromdebate VARCHAR REFERENCES debates (id)
 );
 
 CREATE TABLE users (
   id VARCHAR PRIMARY KEY,
   username VARCHAR,
-  passwordHash VARCHAR,
-  faceHash VARCHAR
+  passwordhash VARCHAR,
+  facehash VARCHAR
 );
 
 CREATE TABLE comments (
   id VARCHAR PRIMARY KEY,
-  isReply BOOL,
+  isreply BOOL,
+  onpost VARCHAR REFERENCES debates (id),
+  fromuser VARCHAR REFERENCES users (id)
+);
+
+CREATE TABLE comments_i18n (
+  id VARCHAR PRIMARY KEY,
   text VARCHAR,
-  onPost VARCHAR REFERENCES debates (id),
-  fromUser VARCHAR REFERENCES users (id)
+  fromcomment VARCHAR REFERENCES comments (id),
+  language VARCHAR
 );
 
 CREATE TABLE prev_faces (
   id VARCHAR PRIMARY KEY,
-  faceHash VARCHAR,
-  fromUser VARCHAR REFERENCES users (id)
+  facehash VARCHAR,
+  fromuser VARCHAR REFERENCES users (id)
 );
 
 CREATE TABLE user_tokens (
   id VARCHAR PRIMARY KEY,
   token VARCHAR,
-  fromUser VARCHAR REFERENCES users (id),
-  createdAt INTEGER
+  fromuser VARCHAR REFERENCES users (id),
+  createdat INTEGER
 );
 
 CREATE TABLE debate_source (
   id VARCHAR PRIMARY KEY,
-  onPost VARCHAR REFERENCES debates (id),
+  onpost VARCHAR REFERENCES debates (id),
   username VARCHAR,
   text VARCHAR
 );

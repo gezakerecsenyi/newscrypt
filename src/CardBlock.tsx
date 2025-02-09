@@ -21,24 +21,44 @@ export default function CardBlock(
         setChatValue(e.currentTarget.value);
     }, []);
 
+    const [comments, setComments] = useState(card.comments);
+
     const [isReply, setIsReply] = useState(false);
     const sendMessage = useCallback(async () => {
+        if (!authState![0]?.id) {
+            setLoading(false);
+            return;
+        }
+
         const resp = await (await fetch(
             '/comment',
             {
                 method: 'POST',
+                headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(
                     {
                         text: chatValue,
-                        onPost: card.id,
-                        isReply,
+                        onpost: card.id,
+                        isreply: isReply,
                     }
                 )
             }
         )).json();
 
+        setLoading(false);
         if (resp.success) {
-            setLoading(false);
+            setComments(
+                [
+                    ...comments,
+                    {
+                        username: authState![0]!.username,
+                        isreply: isReply,
+                        text: chatValue,
+                        onpost: card.id,
+                        id: Math.random().toString(),
+                    }
+                ]
+            );
             setChatValue('');
         }
     }, [chatValue, isReply, authState]);
@@ -49,7 +69,7 @@ export default function CardBlock(
         if (chatValue.length) {
             setLoading(true);
 
-            if (!authState![0]) {
+            if (!authState![0]?.id) {
                 setShowAuthCheck(true);
                 return;
             }
@@ -66,13 +86,13 @@ export default function CardBlock(
     const [activeTab, setActiveTab] = useState('summary');
 
     const setReply = useCallback((username: string) => {
-        const newChatValue = `@${username} ${chatValue.replace(/^\s*@[a-zA-Z0-9_\-!]/g, '')}`;
+        const newChatValue = `@${username} ${chatValue.replace(/^\s*@[a-zA-Z0-9_\-!]+\s+/g, '')}`;
         setChatValue(newChatValue);
     }, [chatValue]);
 
     return (
         <div className="card" id={card.id}>
-            {showAuthCheck && <AuthCheck closeModal={handleAuthCompletion} />}
+            {showAuthCheck && <AuthCheck closeModal={handleAuthCompletion} authState={authState} />}
             <article>
                 <div className="card-content">
                     <img src={card.image} alt={decodeURIComponent(card.title)} onClick={openModal} />
@@ -99,21 +119,23 @@ export default function CardBlock(
                         )}
                         {activeTab === 'tweets' && (
                             <ul className="tweets" onClick={(e) => e.stopPropagation()}>
-                                <TweetPreview tweet={{url: 'abc', user: 'elonmusk', text: 'OMG! Crypto is awfuL!'}}/>
-                                <TweetPreview tweet={{url: 'abc', user: 'trump', text: 'OMG! Crypto is awfuLfehfeuhfeu huefhufheuhf hefuhe wihohq bkjfqqrhu qhpoqirw joijfiew jwfij ijefij!'}}/>
-                                <TweetPreview tweet={{url: 'abc', user: 'obama', text: 'OMG! Crypto is the bestest bestest bestest bestest bestest bestest bestest bestest bestest bestest bestest bestest bestest bestest !'}}/>
+                                {
+                                    card.sources.map(source => (
+                                        <TweetPreview tweet={source} />
+                                    ))
+                                }
                             </ul>
                         )}
                     </div>
                     <div className="chat">
                         <div className="chat-messages">
                             {card.comments?.map(comment => (<p
-                                className={'chat-bubble' + (comment.isReply ? ' reply' : '')}
-                                data-username={comment.fromUsername}
-                                onClick={() => setReply(comment.fromUsername)}
+                                className={'chat-bubble' + (comment.isreply ? ' reply' : '')}
+                                data-username={comment.username}
+                                onClick={() => setReply(comment.username)}
                                 key={comment.id}
                             >
-                                <strong>{comment.fromUsername}:</strong> {decodeURIComponent(comment.text)}
+                                <strong>{comment.username}:</strong> {decodeURIComponent(comment.text)}
                             </p>))}
                         </div>
                         <div className="input-block">
@@ -129,52 +151,6 @@ export default function CardBlock(
                     </div>
                 </div>
             </article>
-            <style>{`
-                .card {
-                    font-family: 'Fira Mono', monospace;
-                }
-                .tabs {
-                    display: flex;
-                    justify-content: space-around;
-                    margin-bottom: 1rem;
-                    gap: 0.5rem;
-                }
-                .tabs button {
-                    flex: 1;
-                    padding: 0.5rem 1rem;
-                    border: none;
-                    background: #333;
-                    cursor: pointer;
-                    transition: background 0.3s, color 0.3s;
-                    font-size: 0.875rem;
-                    font-weight: bold;
-                    color: #bbb;
-                    border-radius: 0.5rem;
-                    font-family: 'Fira Mono', monospace;
-                }
-                .tabs button.active {
-                    background: #555;
-                    color: white;
-                    border-bottom: none;
-                }
-                .tabs button:not(.active):hover {
-                    background: #444;
-                }
-                .tweets {
-                    list-style: none;
-                    padding: 0;
-                }
-                .tweets li {
-                    margin-bottom: 0.5rem;
-                }
-                .tweets a {
-                    color: #1DA1F2;
-                    text-decoration: none;
-                }
-                .tweets a:hover {
-                    text-decoration: underline;
-                }
-            `}</style>
         </div>
     );
 }

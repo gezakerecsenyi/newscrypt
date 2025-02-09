@@ -249,10 +249,28 @@ h3 {
     height: 100%;
 }
 
-#modal-article .card-content div {
+#modal-article .card-content .content {
     overflow-y: auto;
     overflow-x: hidden;
     max-height: 100%;
+}
+
+#modal-article .card-content .content::-webkit-scrollbar {
+    width: 8px;
+}
+
+#modal-article .card-content .content::-webkit-scrollbar-track {
+    background: #2c2c2c;
+    border-radius: 10px;
+}
+
+#modal-article .card-content .content::-webkit-scrollbar-thumb {
+    background: #add8e6;
+    border-radius: 10px;
+}
+
+#modal-article .card-content .content::-webkit-scrollbar-thumb:hover {
+    background: #87ceeb;
 }
 
 #modal-article .card-content .chat {
@@ -356,6 +374,8 @@ h3 {
 
 button[disabled] {
     cursor: default;
+    filter: saturate(0.5) brightness(0.75);
+    transition: filter 200ms ease;
 }
 
 footer {
@@ -448,4 +468,70 @@ footer .email {
 
 input.error {
     border-color: #960000;
+}
+
+.tweet {
+    padding: 10px;
+    border: 1px solid #2f3336;
+    border-radius: 10px;
+    margin: 10px 0;
+    background-color: #1c1e21;
+    font-family: Arial, sans-serif;
+    max-width: 500px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-decoration: none;
+    display: block;
+    color: inherit;
+}
+.tweet h3 {
+    margin: 0;
+    font-size: 16px;
+    color: #ffffff;
+}
+.tweet p {
+    margin: 5px 0 0;
+    font-size: 14px;
+    color: #8899a6;
+}
+
+.tabs {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 1rem;
+    gap: 0.5rem;
+}
+.tabs button {
+    flex: 1;
+    padding: 0.5rem 1rem;
+    border: none;
+    background: #333;
+    cursor: pointer;
+    transition: background 0.3s, color 0.3s;
+    font-size: 0.875rem;
+    font-weight: bold;
+    color: #bbb;
+    border-radius: 0.5rem;
+    font-family: 'Fira Mono', monospace;
+}
+.tabs button.active {
+    background: #555;
+    color: white;
+    border-bottom: none;
+}
+.tabs button:not(.active):hover {
+    background: #444;
+}
+.tweets {
+    list-style: none;
+    padding: 0;
+}
+.tweets li {
+    margin-bottom: 0.5rem;
+}
+.tweets a {
+    color: #1DA1F2;
+    text-decoration: none;
+}
+.tweets a:hover {
+    text-decoration: underline;
 }

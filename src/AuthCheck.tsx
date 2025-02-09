@@ -105,10 +105,11 @@ export default function AuthCheck(
             '/auth',
             {
                 method: 'POST',
+                headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(
                     {
                         password,
-                        faceHash: digest,
+                        facehash: digest,
                     }
                 )
             }
@@ -125,6 +126,7 @@ export default function AuthCheck(
         }
     }, [videoRef, currentSuccess, videoRef, canvasRef, password]);
 
+    const [username, setUsername] = useState('');
     const [noSubmit, setNoSubmit] = useState(false);
     useEffect(() => {
         const videoEl = videoRef.current;
@@ -132,9 +134,9 @@ export default function AuthCheck(
 
         if (
             showUsernamePage ? (
-                username.length <= 4 ||
+                username.length <= 3 ||
                 username.length >= 16 ||
-                !username.match(/^[a-zA-Z0-9_\-!]$/g)
+                !username.match(/^[a-zA-Z0-9_\-!]+$/g)
             ) : (
                 !videoEl ||
                 !canvas ||
@@ -149,16 +151,15 @@ export default function AuthCheck(
         } else {
             setNoSubmit(false);
         }
-    }, [videoRef, canvasRef, currentSuccess, showUsernamePage]);
+    }, [videoRef, canvasRef, currentSuccess, showUsernamePage, username, password]);
 
     const currentLevel = currentSuccess > 0.4 ? currentSuccess > 0.75 ? 2 : 1 : 0;
 
-    const [username, setUsername] = useState('');
     const submitUsername = useCallback(async () => {
         setError(false);
         setLoading(true);
 
-        if (username.length > 4 && username.length < 16 && username.match(/^[a-zA-Z0-9_\-!]$/g)) {
+        if (username.length >= 4 && username.length < 16 && username.match(/^[a-zA-Z0-9_\-!]+$/g)) {
             const resp = await (await fetch(
                 '/create',
                 {
@@ -166,15 +167,18 @@ export default function AuthCheck(
                     body: JSON.stringify(
                         {
                             password,
-                            faceHash,
+                            facehash: faceHash,
                             username
                         }
-                    )
+                    ),
+                    headers: { "Content-Type": "application/json" },
                 }
             )).json();
 
+            console.log(resp, authState);
+
             setLoading(false);
-            if (resp.success && authState) {
+            if (resp.success && resp.user && authState) {
                 authState[1](resp.user);
                 closeModal();
             } else {
@@ -182,13 +186,12 @@ export default function AuthCheck(
                 setError(true);
             }
         }
-    }, [username, faceHash]);
+    }, [username, faceHash, authState]);
 
     return (
         <div className='modal face-check-modal'>
             <div className="modal-content">
                 <span className="close" onClick={closeModal}>&times;</span>
-
                 {
                     showUsernamePage ? (
                         <>
