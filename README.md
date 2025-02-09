@@ -24,7 +24,11 @@ both Tweets and articles from the news, are fed into these agents, so as to ensu
 rational decision-making and evidence. We then present this in a user-friendly format on a website with a combined
 retro-futuristic aesthetic.
 
+It's quite clever:
+
 ![slopplan.png](slopplan.png)
+
+We run our debate generation in batches, allowing articles, Tweets, and expert agential knowledge to be shared between each write-up. We task experts with reviewing the current affairs, ask a moderator to split up the findings into topics, and a Twitter expert to identify relevant search terms. Then, the coolest bit: **we pit two AIs against each other in a death match** to appease a 'journalist' - but the catch is, the only evidence they're allowed to use is from Twitter. The Journalist's final report is what you see (alongside our list of sources).
 
 The USP of our site compared to other submissions is our commitment to openness: we don't accept that the most popular
 accounts should automatically be the decision-makers on issues. We therefore introduce a forum feature on the website,
