@@ -7,8 +7,9 @@ import executeReportWriter from "./prompts/executeReportWriter";
 import executeTweetSummaryFlow, {TweetSummaryResponse} from "./prompts/executeTweetSummaryFlow";
 import executeDebateFlow from "./prompts/executeDebateFlow";
 import {existsSync, readFileSync, writeFileSync} from 'fs';
+import {TwitterPost} from "./queryTwitter";
 
-async function resolveInTurn<T>(promises: Promise<T>[], sync = false): Promise<T[]> {
+async function resolveInTurn<T>(promises: Promise<T>[], sync = true): Promise<T[]> {
     if (sync) {
         let res = [] as T[];
         for (const promise of promises) {
@@ -21,8 +22,15 @@ async function resolveInTurn<T>(promises: Promise<T>[], sync = false): Promise<T
     }
 }
 
-export default async function generateNewsSummaries() {
-    const newsQueries: string[] = ['crypto', 'bitcoin', 'ethereum', 'blockchain'];
+export interface NewsSummary {
+    report: string;
+    image: string;
+    title: string;
+    citations: TwitterPost[];
+}
+
+export default async function generateNewsSummaries(): Promise<NewsSummary[]> {
+    const newsQueries: string[] = ['crypto', 'bitcoin', 'blockchain'];
     const articleData = debug ? [
         {
             "uuid": "6ecfac5b-d8bf-414c-91c7-519ee7712c92",
@@ -108,7 +116,14 @@ export default async function generateNewsSummaries() {
     }
     debuggerLog('got summaries');
 
-    return await resolveInTurn(tweetSummaries.map(async (summary, index) => {
+    const debateFlows = await resolveInTurn(tweetSummaries.map(async (summary, index) => {
         return await executeDebateFlow(summary, synthesisedReports[index]);
+    }));
+
+    return debateFlows.map((debate, index) => ({
+        report: debate,
+        title: synthesisedReports[index].topic,
+        image: articleData[index].image_url,
+        citations: tweetSummaries[index].tweetsReviewed,
     }));
 }

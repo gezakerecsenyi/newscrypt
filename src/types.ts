@@ -14,8 +14,22 @@ export interface Debate {
     comments: Comment[];
 }
 
-export interface Auth {
+export interface User {
+    id: string;
     username: string;
-    password: string;
+    passwordHash: string;
     faceHash: string;
+}
+
+export interface PrevFace {
+    id: string;
+    fromUser: string;
+    faceHash: string;
+}
+
+export interface UserToken {
+    id: string;
+    fromUser: string;
+    token: string;
+    createdAt: number;
 }

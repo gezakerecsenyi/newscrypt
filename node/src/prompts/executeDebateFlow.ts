@@ -6,11 +6,7 @@ import {debuggerLog} from "../config";
 
 const getDebaterSystemText = (name: string, roleTitle: string, roleDescription: string, twitterReport: TweetSummaryResponse, expertReport: ReportWriterReport) => `You are a social media expert named ${name}, representing the ${roleTitle} on a debate on ${expertReport.topic}. Crucially, you are not to provide your own opinion, but rather to represent the views of social media on this theme.
 
-Here is a comprehensive summary of the key themes of the Twitter discussion, based on a review of hundreds of recent Tweets:
-
-${twitterReport.finalSummary}
-
-Additionally, a team of experts have reviewed the news surrounding the topic of ${expertReport.topic}. Their final summary is below:
+A team of experts have reviewed the news surrounding the topic of ${expertReport.topic}. Their final summary is below:
 
 ${expertReport.topic}
 
@@ -20,14 +16,20 @@ Make sure to:
  - Include specific quotes from the Tweets and the reports
  - Be specific in your argument.
  - Remain true to the views of people on Twitter. Name key accounts as you see fit.
+
+You MUST quote and attribute by name AT LEAST THREE tweets per response.
  
- **Do not forget to start all of your responses with "${name}:".**`;
+**Do not forget to start all of your responses with "${name}:".**
+
+Here is a comprehensive summary of the key themes of the Twitter discussion, based on a review of hundreds of recent Tweets:
+
+${twitterReport.finalSummary}`;
 
 const journalistSystemText = (twitterReport: TweetSummaryResponse, expertReport: ReportWriterReport) => `You are a journalist reporting on a debate on ${expertReport.topic}. Crucially, this debate is interesting because the opposition (Karim) and proposition (Andreja) are social media experts, rather than crypto experts: they represent the views of the social media community.
 
 They both began with this report on the Twitter discourse:
 
-${twitterReport.finalSummary}
+${twitterReport.finalSummary.split('Relevant Tweets:')[0]}
 
 Additionally, they received a report written by a set of experts on the topic:
 
@@ -43,7 +45,11 @@ Your job as the journalist will be to produce a write-up on the debate. Aim for 
  - NOT name Karim or Andreja, to protect their identities. Refer to them as "The Twitter proposition" and "The Twitter opposition" instead.
  - NOT use references/citations in your answer: DO use quotations, but describe the source of these in text, rather than by linking a citation
  
-Remember to include quotes from Tweets, arguments from Karim and Andreja, and the news sources. You will receive a set of Tweets as a file to pull from, but you should predominantly make reference to the proceedings of the debate in the process.`
+Remember to include quotes from Tweets, arguments from Karim and Andreja, and the news sources. You will receive a set of Tweets as a file to pull from, but you should predominantly make reference to the proceedings of the debate in the process.
+
+You may find the following a useful starting-point:
+
+${twitterReport.finalSummary.split('Relevant Tweets:')[1]?.trim()}`
 
 export default async function executeDebateFlow(twitterReport: TweetSummaryResponse, expertReport: ReportWriterReport) {
     const moderator = new LLMAgent(

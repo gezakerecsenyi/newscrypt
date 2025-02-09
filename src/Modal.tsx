@@ -1,5 +1,5 @@
 import Card from "./CardBlock";
-import {Auth, Debate} from "./types";
+import {Debate} from "./types";
 import {useEffect, useState} from "react";
 
 interface Props {
@@ -21,14 +21,12 @@ export default function Modal(
         }
     }, []);
 
-    const authState = useState<Auth | null>(null);
-
     return (
         <div id="modal" className="modal">
             <div className="modal-content">
                 <span className="close" onClick={closeModal}>&times;</span>
                 <div id="modal-article">
-                    <Card card={debate} authState={authState} />
+                    <Card card={debate} />
                 </div>
             </div>
         </div>

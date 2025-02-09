@@ -2,13 +2,13 @@ import React, {useEffect, useState} from 'react';
 import './App.css';
 import Header from "./Header";
 import Footer from "./Footer";
-import {Auth, Debate} from "./types";
+import {Debate, User} from "./types";
 import Card from './CardBlock';
 import Modal from "./Modal";
 
 function App() {
     const [debates, setDebates] = useState<Debate[]>(window.data.debates);
-    const [currentCard, setCurrentCard] = useState(window.data.debates[0].id);
+    const [currentCard, setCurrentCard] = useState(window.data.debates[0]?.id || '');
 
     useEffect(() => {
         let isScrolling: NodeJS.Timeout;
@@ -40,7 +40,7 @@ function App() {
     }, []);
 
     const [modalDebate, setModalDebate] = useState<Debate | null>(null);
-    const authState = useState<Auth | null>(null);
+    const authState = useState<User | null>(window.data.currentUser);
 
     return (
         <div className="App">

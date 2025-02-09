@@ -71,8 +71,6 @@ main {
     display: flex;
     flex-direction: column;
     overflow: hidden !important;
-    justify-content: top;
-    align-items: top;
     padding: 20px;
     border: 1px solid rgba(219, 225, 231, 0.2); /* Faint border */
 }
@@ -234,6 +232,8 @@ h3 {
     color: white;
     overflow: hidden;
     height: 75%;
+    border-radius: 10px;
+    transition: height 200ms ease;
 }
 
 #modal-article {
@@ -435,4 +435,8 @@ footer .email {
 
 .modal .card {
     border: none;
+}
+
+input.error {
+    border-color: #960000;
 }
