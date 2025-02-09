@@ -1,5 +1,6 @@
 import {useCallback, useEffect, useRef, useState} from "react";
 import * as faceapi from 'face-api.js';
+import lsh from "@agtabesh/lsh";
 
 interface Props {
     closeModal: () => void;
@@ -78,6 +79,8 @@ export default function AuthCheck(
 
         const faces = await faceapi.extractFaces(faceapi.createCanvasFromMedia(videoEl), [result]);
         const descriptor = await faceapi.computeFaceDescriptor(faces[0]);
+
+
 
         setLoading(false);
     }, [videoRef, currentSuccess, videoRef, canvasRef]);

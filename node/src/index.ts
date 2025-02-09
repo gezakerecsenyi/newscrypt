@@ -1,14 +1,32 @@
-import generateNewsSummaries from "./generateNewsSummaries";
-
 // generateNewsSummaries().then(e => console.log(JSON.stringify(e)));
-
 import path from "path";
 import fs from "fs";
-
 import express from "express";
+
+import bodyParser from "body-parser";
 
 const PORT = process.env.PORT || 2000;
 const app = express();
+
+app.use(bodyParser.json())
+app.use(
+    bodyParser.urlencoded(
+        {
+            extended: true,
+        }
+    )
+);
+
+// const Pool = require('pg').Pool
+// const pool = new Pool(
+//     {
+//         user: 'me',
+//         host: 'localhost',
+//         database: 'api',
+//         password: 'admin',
+//         port: 5432,
+//     }
+// )
 
 app.get("/", (req, res) => {
     fs.readFile(path.resolve("../build/index.html"), "utf8", (err, data) => {
@@ -22,17 +40,37 @@ app.get("/", (req, res) => {
                 '{{data}}',
                 JSON.stringify(
                     {
-                        debates:  [
+                        debates: [
                             {
                                 title: "Ethereum 2.0 Launches Successfully",
                                 report: "The long-awaited Ethereum 2.0 upgrade has finally launched, bringing significant improvements to the network's scalability, security, and energy efficiency. The upgrade introduces a new proof-of-stake consensus mechanism, which is expected to reduce the network's energy consumption by over 99%. Ethereum 2.0 also includes sharding, a technique that allows the network to process multiple transactions simultaneously, greatly increasing its capacity. This upgrade is seen as a major milestone for the Ethereum community and is expected to drive further adoption of decentralized applications and smart contracts.",
                                 image: "https://picsum.photos/seed/2/400/400",
                                 id: "ethereum-2.0-launches-successfully",
                                 comments: [
-                                    { fromUsername: "Username3", text: "Finally, it's here!", onPost: "ethereum-2.0-launches-successfully", isReply: false },
-                                    { fromUsername: "Username4", text: "This will change everything.", onPost: "ethereum-2.0-launches-successfully", isReply: false },
-                                    { fromUsername: "Username5", text: "@Username4 Not sure if it will change everything, but it's a good start.", onPost: "ethereum-2.0-launches-successfully", isReply: true },
-                                    { fromUsername: "Username6", text: "Can't wait to see the impact!", onPost: "ethereum-2.0-launches-successfully", isReply: false }
+                                    {
+                                        fromUsername: "Username3",
+                                        text: "Finally, it's here!",
+                                        onPost: "ethereum-2.0-launches-successfully",
+                                        isReply: false
+                                    },
+                                    {
+                                        fromUsername: "Username4",
+                                        text: "This will change everything.",
+                                        onPost: "ethereum-2.0-launches-successfully",
+                                        isReply: false
+                                    },
+                                    {
+                                        fromUsername: "Username5",
+                                        text: "@Username4 Not sure if it will change everything, but it's a good start.",
+                                        onPost: "ethereum-2.0-launches-successfully",
+                                        isReply: true
+                                    },
+                                    {
+                                        fromUsername: "Username6",
+                                        text: "Can't wait to see the impact!",
+                                        onPost: "ethereum-2.0-launches-successfully",
+                                        isReply: false
+                                    }
                                 ]
                             },
                             {
@@ -41,8 +79,18 @@ app.get("/", (req, res) => {
                                 image: "https://picsum.photos/seed/3/400/400",
                                 id: "defi-market-continues-to-grow",
                                 comments: [
-                                    { fromUsername: "Username5", text: "DeFi is the future!", onPost: "defi-market-continues-to-grow", isReply: false },
-                                    { fromUsername: "Username6", text: "So many opportunities here.", onPost: "defi-market-continues-to-grow", isReply: false }
+                                    {
+                                        fromUsername: "Username5",
+                                        text: "DeFi is the future!",
+                                        onPost: "defi-market-continues-to-grow",
+                                        isReply: false
+                                    },
+                                    {
+                                        fromUsername: "Username6",
+                                        text: "So many opportunities here.",
+                                        onPost: "defi-market-continues-to-grow",
+                                        isReply: false
+                                    }
                                 ]
                             },
                             {
@@ -51,8 +99,18 @@ app.get("/", (req, res) => {
                                 image: "https://picsum.photos/seed/4/400/400",
                                 id: "regulatory-developments-in-the-crypto-space",
                                 comments: [
-                                    { fromUsername: "Username7", text: "Regulations are necessary.", onPost: "regulatory-developments-in-the-crypto-space", isReply: false },
-                                    { fromUsername: "Username8", text: "Hope they don't stifle innovation.", onPost: "regulatory-developments-in-the-crypto-space", isReply: false }
+                                    {
+                                        fromUsername: "Username7",
+                                        text: "Regulations are necessary.",
+                                        onPost: "regulatory-developments-in-the-crypto-space",
+                                        isReply: false
+                                    },
+                                    {
+                                        fromUsername: "Username8",
+                                        text: "Hope they don't stifle innovation.",
+                                        onPost: "regulatory-developments-in-the-crypto-space",
+                                        isReply: false
+                                    }
                                 ]
                             },
                             {
@@ -61,8 +119,18 @@ app.get("/", (req, res) => {
                                 image: "https://picsum.photos/seed/5/400/400",
                                 id: "new-partnerships-and-collaborations-in-the-crypto-industry",
                                 comments: [
-                                    { fromUsername: "Username9", text: "Exciting times ahead!", onPost: "new-partnerships-and-collaborations-in-the-crypto-industry", isReply: false },
-                                    { fromUsername: "Username10", text: "Can't wait to see what's next.", onPost: "new-partnerships-and-collaborations-in-the-crypto-industry", isReply: false }
+                                    {
+                                        fromUsername: "Username9",
+                                        text: "Exciting times ahead!",
+                                        onPost: "new-partnerships-and-collaborations-in-the-crypto-industry",
+                                        isReply: false
+                                    },
+                                    {
+                                        fromUsername: "Username10",
+                                        text: "Can't wait to see what's next.",
+                                        onPost: "new-partnerships-and-collaborations-in-the-crypto-industry",
+                                        isReply: false
+                                    }
                                 ]
                             }
                         ],
@@ -73,8 +141,10 @@ app.get("/", (req, res) => {
     });
 });
 
+
+
 app.use(
-    express.static(path.resolve(__dirname, '../../build'), { maxAge: "30d" })
+    express.static(path.resolve(__dirname, '../../build'), {maxAge: "30d"})
 );
 
 app.listen(PORT, () => {
