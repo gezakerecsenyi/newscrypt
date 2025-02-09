@@ -43,9 +43,11 @@ function App() {
     }, []);
 
     useEffect(() => {
-        if (window.location.hash) {
-            document.getElementById(window.location.hash)!.scrollIntoView({behavior: 'smooth'});
-        }
+        window.setTimeout(() => {
+            if (window.location.hash) {
+                document.getElementById(window.location.hash)?.scrollIntoView({behavior: 'smooth'});
+            }
+        }, 200)
     }, []);
 
     const [modalDebate, setModalDebate] = useState<Debate | null>(null);
