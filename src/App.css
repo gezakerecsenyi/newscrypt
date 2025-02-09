@@ -125,6 +125,7 @@ html {
 
 .card-content .content {
     height: 100%;
+    overflow: hidden;
 }
 
 h3 {
@@ -195,10 +196,14 @@ h3 {
 
 .fade-out {
     display: -webkit-box;
-    -webkit-line-clamp: 20; /* Increased line clamp */
+    -webkit-line-clamp: 17; /* Increased line clamp */
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+.tweets {
+    overflow: hidden;
 }
 
 .card-content > * {
@@ -267,6 +272,10 @@ h3 {
 
 #modal-article .card-content > *:nth-child(2) {
     width: calc(50%) !important;
+}
+
+#modal-article .tabs {
+    display: none;
 }
 
 .close {
