@@ -132,7 +132,7 @@ export default function CardBlock(
                     </div>
                     <div className="chat">
                         <div className="chat-messages">
-                            {card.comments?.map(comment => (<p
+                            {comments?.map(comment => (<p
                                 className={'chat-bubble' + (comment.isreply ? ' reply' : '')}
                                 data-username={comment.username}
                                 onClick={() => setReply(comment.username)}
