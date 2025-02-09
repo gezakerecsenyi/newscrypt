@@ -62,8 +62,6 @@ export default function CardBlock(
             );
             setChatValue('');
         }
-
-        window.location.reload();
     }, [chatValue, isReply, authState, card]);
 
     const [showAuthCheck, setShowAuthCheck] = useState(false);
