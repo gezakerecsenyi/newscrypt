@@ -35,8 +35,8 @@ function App() {
                     window.scrollTo({top: y, behavior: 'smooth'});
                     setCurrentCard(closestCard.id);
                     window.setTimeout(() => {
-                        window.location.hash = closestCard.id;
-                    }, 400);
+                        history.pushState({}, '', `#${closestCard.id}`);
+                    }, 200);
                 }
             }, 100);
         });
