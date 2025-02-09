@@ -42,6 +42,12 @@ function App() {
         });
     }, []);
 
+    useEffect(() => {
+        if (window.location.hash) {
+            document.getElementById(window.location.hash)!.scrollIntoView({behavior: 'smooth'});
+        }
+    }, []);
+
     const [modalDebate, setModalDebate] = useState<Debate | null>(null);
     const authState = useState<User | null>(window.data.currentUser);
 
