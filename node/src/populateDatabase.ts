@@ -1,17 +1,11 @@
 import generateNewsSummaries from './generateNewsSummaries';
 import {Pool, QueryResult} from 'pg';
 import crypto from 'node:crypto';
-import {rfc3986EncodeURIComponent} from "./common";
+import {postgresConfig, rfc3986EncodeURIComponent} from "./common";
 import {TranslatorSwitch} from "./prompts/executeTranslatorSwitch";
 
 const pool = new Pool(
-    {
-        user: 'postgres',
-        host: 'localhost',
-        database: 'postgres',
-        password: 'admin',
-        port: 5432,
-    }
+    postgresConfig
 );
 
 async function asyncQuery(query: string): Promise<QueryResult<any>> {

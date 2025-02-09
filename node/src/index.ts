@@ -8,7 +8,7 @@ import {Pool, QueryResult} from 'pg';
 import * as crypto from 'node:crypto';
 
 import cookies from 'cookie-parser';
-import {getHashedPassword, rfc3986EncodeURIComponent} from "./common";
+import {getHashedPassword, postgresConfig, postgresHost, rfc3986EncodeURIComponent} from "./common";
 import executeTranslatorSwitch, {TranslatorSwitch} from "./prompts/executeTranslatorSwitch";
 
 const PORT = process.env.PORT || 2000;
@@ -25,13 +25,7 @@ app.use(
     )
 );
 const pool = new Pool(
-    {
-        user: 'postgres',
-        host: 'localhost',
-        database: 'postgres',
-        password: 'admin',
-        port: 5432,
-    }
+    postgresConfig
 );
 
 const getTimestamp = () => Math.floor(new Date().getTime() / 1000);
