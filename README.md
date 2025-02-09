@@ -10,6 +10,7 @@ _As with any project developed in around 36 hours by just two people, NewsCrypt 
 
 ### USPs at a glance 
 
+ - **An agent-powered death match** to simulate the journalistic model for objectivity production (see our schematic below)
  - **HUMAN Handshake** - revolutionary cryptography-powered combined authentication and liveness verification method
  - **Forums** for discussing views - not just letting the big names talk
  - **Powerful, knowledge-backed agential AI** consisting of 24 agents playing 12 roles to digest around 120 Tweets and 15 articles to create every single debate summary
@@ -41,6 +42,8 @@ actually reaching the server.
 ![Screenshot 2025-02-09 133504.png](Screenshot%202025-02-09%20133504.png)
 
 One of our biggest priorities was breaking down barriers and expanding access. That's why out website features full internationalisation, with auto-translation of all messages and analyses published, powered by AI. This sets us apart from the competition who think crypto is reserved for the Anglosphere - we're here to bring together minds from around the world for a truly decentralised society.
+
+![Screenshot 2025-02-09 143017.png](Screenshot%202025-02-09%20143017.png)
 
 We're really proud of what we've built, and hope you find it cool too. Check it out on newscrypt.onrender.com or
 newscrypt.xyz.
