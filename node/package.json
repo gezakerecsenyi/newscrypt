@@ -24,7 +24,7 @@
   },
   "scripts": {
     "build": "npm install && npx tsc",
-    "start": "npm run run-generate && npm run run-generate && npm run run-generate && node ./src/index.js",
+    "start": "node ./src/index.js",
     "run-server": "npx tsc && node ./src/index.js",
     "run-generate": "npx tsc && node ./src/populateDatabase.js"
   },
