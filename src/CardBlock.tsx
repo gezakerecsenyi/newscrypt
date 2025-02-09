@@ -20,16 +20,25 @@ export default function CardBlock(
         setChatValue(e.currentTarget.value);
     }, []);
 
-    const [showAuthCheck, setShowAuthCheck] = useState(false)
+    const [showAuthCheck, setShowAuthCheck] = useState(false);
+    const [loading, setLoading] = useState(false);
     const sendMessage = useCallback(async () => {
-        if (!authState![0]) {
-            setShowAuthCheck(true);
+        if (chatValue.length) {
+            setLoading(true);
+
+            if (!authState![0]) {
+                setShowAuthCheck(true);
+            }
         }
-    }, [chatValue]);
+    }, [chatValue, authState]);
+
+    const handleAuthCompletion = useCallback(() => {
+        setShowAuthCheck(false);
+    }, [chatValue, authState]);
 
     return (
         <div className="card" id={card.id}>
-            { showAuthCheck && <AuthCheck closeModal={() => setShowAuthCheck(false)} /> }
+            { showAuthCheck && <AuthCheck closeModal={handleAuthCompletion} /> }
             <article>
                 <div className="card-content">
                     <img src={card.image} alt={card.title} onClick={openModal}/>
@@ -56,8 +65,9 @@ export default function CardBlock(
                                 placeholder="Type a message..."
                                 value={chatValue}
                                 onInput={handleChatChange}
+                                disabled={loading}
                             />
-                            <button onClick={sendMessage}>Send</button>
+                            <button onClick={sendMessage} disabled={loading}>Send</button>
                         </div>
                     </div>
                 </div>

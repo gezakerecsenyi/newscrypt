@@ -143,7 +143,7 @@ h3 {
 .language-selector select {
     background: transparent;
     border: none;
-    color: #dbe1e7;
+    color: #989898;
     font-size: 1em;
     cursor: pointer;
     appearance: none;
@@ -333,6 +333,10 @@ h3 {
     cursor: pointer;
 }
 
+button[disabled] {
+    cursor: default;
+}
+
 footer {
     font-size: 0.9em;
 }
@@ -341,9 +345,70 @@ footer .email {
     text-decoration: none;
 }
 
-.modal video {
-    margin-bottom: 10px;
+.video-container {
     width: 100%;
+}
+
+.modal video {
+    width: 100%;
+}
+
+.video-container {
+    position: relative;
+    margin-bottom: 30px;
+}
+
+.video-container canvas {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.video-container .success-bar {
+    height: 10px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    transition: width 150ms ease;
+}
+
+.video-container .success-bar::after {
+    position: absolute;
+    bottom: -15px;
+    left: 0;
+    font-family: inherit;
+    color: inherit;
+    font-size: 0.9em;
+    width: 100vw;
+}
+
+.video-container .success-bar.level-0 {
+    background-color: #790000;
+    color: #bb0000;
+}
+
+.video-container .success-bar.level-0::after {
+    content: 'Show your face clearly.'
+}
+
+.video-container .success-bar.level-1 {
+    background-color: #c56700;
+    color: #c56700;
+}
+
+.video-container .success-bar.level-1::after {
+    content: 'Hold your face steady and straight-on.'
+}
+
+.video-container .success-bar.level-2 {
+    background-color: #1c5e13;
+    color: #1a940a;
+}
+
+.video-container .success-bar.level-2::after {
+    content: 'Good! Press submit.'
 }
 
 .modal h2 {

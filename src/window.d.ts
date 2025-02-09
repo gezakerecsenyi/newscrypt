@@ -1,5 +1,5 @@
 import {Debate} from "./types";
 
 declare global {
-    interface Window { debates: Debate[] }
+    interface Window { data: { debates: Debate[] } }
 }

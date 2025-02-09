@@ -7,8 +7,8 @@ import Card from './CardBlock';
 import Modal from "./Modal";
 
 function App() {
-    const [debates, setDebates] = useState<Debate[]>(window.debates);
-    const [currentCard, setCurrentCard] = useState(window.debates[0].id);
+    const [debates, setDebates] = useState<Debate[]>(window.data.debates);
+    const [currentCard, setCurrentCard] = useState(window.data.debates[0].id);
 
     useEffect(() => {
         let isScrolling: NodeJS.Timeout;
