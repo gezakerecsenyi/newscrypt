@@ -9,18 +9,10 @@ export interface ResearchExpertResponse {
 }
 
 export default async function executeResearchExpert(files: Buffer[], expertSpec: ExpertSpec): Promise<ResearchExpertResponse> {
-    const resp = await queryLLMAgent(
-        {
-            content: expertSpec.roleDescription,
-            role: 'user',
-        },
-        'Niche Expert Researcher',
-        systemPrompt,
-        files,
-        'txt',
-        'article_',
-        expertSpec.roleName,
-    );
+    const resp = await queryLLMAgent({
+        content: expertSpec.roleDescription,
+        role: 'user',
+    }, 'Niche Expert Researcher', systemPrompt, files, 'txt', 'article_', 0.5, expertSpec.roleName);
 
     return {
         response: resp,

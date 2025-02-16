@@ -48,18 +48,10 @@ interface ResearchCoordinatorResponse { // Your response should be adherent to t
 const firstMessage = `Find attached news articles. Please provide your instruction paragraphs for four chosen experts (including a ‘Crypto Expert’ and a ‘Political Editor’, and two others), providing your response as JSON, including topic names and the file names of the most relevant articles.`
 
 export default async function executeResearchCoordinator(files: Buffer[]): Promise<ResearchCoordinatorResponse> {
-    const response = await queryLLMAgent(
-        {
-            content: firstMessage,
-            role: 'user',
-        },
-        'Research Coordinator',
-        systemPrompt,
-        files,
-        'txt',
-        'article_',
-        'research-coordinator'
-    );
+    const response = await queryLLMAgent({
+        content: firstMessage,
+        role: 'user',
+    }, 'Research Coordinator', systemPrompt, files, 'txt', 'article_', 0.9, 'research-coordinator');
 
     return extract(response)[0] as ResearchCoordinatorResponse;
 }

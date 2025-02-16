@@ -27,18 +27,10 @@ ${experts[3].response}
 First, analyse and note down any thoughts you have on the key points to pull out regarding each story from the corresponding analysts. Then, write a synthesised report for each story as an array of JSON objects, each with keys \`topic\` and \`report\` (both type \`string\`). In your report, use quotations from the experts’ opinions, including any quotations they may have in turn included from the articles they have read.`
 
 export default async function executeReportWriter(topics: string[], experts: ResearchExpertResponse[]): Promise<ReportWriterResponse> {
-    const response = await queryLLMAgent(
-        {
-            content: firstMessage(topics, experts),
-            role: 'user',
-        },
-        'Research Coordinator',
-        systemPrompt,
-        [],
-        'pdf',
-        'article_',
-        'report-writer'
-    );
+    const response = await queryLLMAgent({
+        content: firstMessage(topics, experts),
+        role: 'user',
+    }, 'Research Coordinator', systemPrompt, [], 'pdf', 'article_', 0.5, 'report-writer');
 
     return extract(response)[0] as ReportWriterResponse;
 }

@@ -17,29 +17,22 @@ You will be provided JSON objects with an "input" field completed in some langua
 Do not output anything else. MAKE SURE to keep formatting as close to the original as possible.`
 
 export default async function executeTranslatorSwitch(text: string): Promise<TranslatorSwitch> {
-    const resp = await queryLLMAgent(
-        {
-            content: `Please complete the JSON by providing the required translations as indicated below. Do not include anything else in your response.
+    const resp = await queryLLMAgent({
+        content: `Please complete the JSON by providing the required translations as indicated below. Do not include anything else in your response.
 
 \`\`\`json
 {
-    "input": "${text.replace(/\n/g, '\\n')}",
-    "en": "<complete>",
-    "es": "<complete>",
-    "fr": "<complete>",
-    "de": "<complete>",
-    "zh": "<complete>"
+"input": "${text.replace(/\n/g, '\\n')}",
+"en": "<complete>",
+"es": "<complete>",
+"fr": "<complete>",
+"de": "<complete>",
+"zh": "<complete>"
 }
 \`\`\`
 `,
-            role: 'user',
-        },
-        'Translator',
-        systemPrompt,
-        [],
-        'pdf',
-        'article_',
-    );
+        role: 'user',
+    }, 'Translator', systemPrompt, [], 'pdf', 'article_');
 
     return extract(resp)[0] as TranslatorSwitch;
 };
