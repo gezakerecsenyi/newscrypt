@@ -126,21 +126,25 @@ export default async function generateNewsSummaries(): Promise<NewsSummary[]> {
         return await executeDebateFlow(summary, synthesisedReports[index]);
     }));
 
+    const allImages = researchSpec
+        .topics
+        .map(e => e
+            .articles
+            .map(e => e.replace(/[^0-9]+/g, ''))
+            .map(e => parseFloat(e))
+            .map(e => articleData[e].image_url)
+        )
+        .flat();
+
     const res: NewsSummary[] = [];
     for (let i = 0; i < debateFlows.length; i++){
         const debate = debateFlows[i];
 
-        const availableImages = researchSpec
-            .topics[i]
-            .articles
-            .map(e => e.replace(/[^0-9]+/g, ''))
-            .map(e => parseFloat(e))
-            .map(e => articleData[e].image_url);
+        const availableImagesHere = articleData.map(e => e.image_url).flat();
 
-        let newImage = availableImages.find(url => !res.some(comp => comp.image === url));
-        if (!newImage) {
-            newImage = availableImages[Math.floor(Math.random() * availableImages.length)];
-        }
+        let newImage = availableImagesHere.find(url => !res.some(comp => comp.image === url)) ||
+            allImages.find(url => !res.some(comp => comp.image === url)) ||
+            availableImagesHere[Math.floor(Math.random() * availableImagesHere.length)];
 
         res.push({
             report: await getTranslatorSwitch(debate),
