@@ -242,7 +242,7 @@ export default async function queryTwitter(
     debuggerLog(`calling {"query":"${query}"${lang ? `,"lang":"${lang}"` : ''}${sort ? `,"sort":"${sort}"` : ''}${startDate ? `,"start_date":"${startDate}"` : ''}}`)
 
     const response = (await (await fetch('https://apis.datura.ai/twitter', options)).json() as TwitterAPIResponse).slice(0, 12);
-    debuggerLog(response);
+    // debuggerLog(response);
 
     return response as TwitterAPIResponse;
 }

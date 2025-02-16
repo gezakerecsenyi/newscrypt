@@ -126,10 +126,29 @@ export default async function generateNewsSummaries(): Promise<NewsSummary[]> {
         return await executeDebateFlow(summary, synthesisedReports[index]);
     }));
 
-    return await resolveInTurn(debateFlows.map(async (debate, index) => ({
-        report: await getTranslatorSwitch(debate),
-        title: await getTranslatorSwitch(synthesisedReports[index].topic),
-        image: articleData[parseFloat(researchSpec.topics[index].articles[Math.floor(Math.random() * researchSpec.topics[index].articles.length)].replace(/[^0-9]+/g, ''))].image_url,
-        citations: tweetSummaries[index].tweetsReviewed,
-    })));
+    const res: NewsSummary[] = [];
+    for (let i = 0; i < debateFlows.length; i++){
+        const debate = debateFlows[i];
+
+        const availableImages = researchSpec
+            .topics[i]
+            .articles
+            .map(e => e.replace(/[^0-9]+/g, ''))
+            .map(e => parseFloat(e))
+            .map(e => articleData[e].image_url);
+
+        let newImage = availableImages.find(url => !res.some(comp => comp.image === url));
+        if (!newImage) {
+            newImage = availableImages[Math.floor(Math.random() * availableImages.length)];
+        }
+
+        res.push({
+            report: await getTranslatorSwitch(debate),
+            title: await getTranslatorSwitch(synthesisedReports[i].topic),
+            image: newImage,
+            citations: tweetSummaries[i].tweetsReviewed,
+        });
+    }
+
+    return res;
 }
