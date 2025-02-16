@@ -23,8 +23,6 @@ export default async function queryLLMAgent(
         await agent.init();
         await agent.addMessage(message, files, fileExtension, filenamePrefix);
         resp = await agent.run();
-
-        debuggerLog(JSON.stringify(resp));
     }
 
     return (resp.data[0].content[0] as TextContentBlock).text.value;

@@ -1,6 +1,6 @@
 import executeResearchCoordinator from "./prompts/executeResearchCoordinator";
 import {debug, debuggerLog} from "./config";
-import queryNews from "./queryNews";
+import queryNews, {NewsArticle} from './queryNews';
 import executeResearchExpert from "./prompts/executeResearchExpert";
 import executeReportWriter from "./prompts/executeReportWriter";
 import executeTweetSummaryFlow, {TweetSummaryResponse} from "./prompts/executeTweetSummaryFlow";
@@ -55,7 +55,7 @@ export default async function generateNewsSummaries(): Promise<NewsSummary[]> {
             "snippet": "\n\n\n\nAkash Jain , a 34-year-old crypto investor and miner, is the true new-age investor. Investing full time in cryptocurrencies since 2015-16, he thought he spot...",
             "url": "https://www.forbesindia.com/article/take-one-big-story-of-the-day/crypto-crash-a-wakeup-call/76485/1",
             "image_url": "https://www.forbesindia.com/media/images/2022/May/img_185407_cryptocrashupdate.jpg",
-            "la nguage": "en",
+            "language": "en",
             "published_at": "2022-05-20T08:50:35.000000Z",
             "source": "news.google.com",
             "categories": ["general"],
@@ -77,7 +77,7 @@ export default async function generateNewsSummaries(): Promise<NewsSummary[]> {
             "relevance_score": 21.051682,
             "locale": "za"
         }
-    ] : (await resolveInTurn(newsQueries.map(query => queryNews(query))))
+    ] as NewsArticle[] : (await resolveInTurn(newsQueries.map(query => queryNews(query))))
                             .map(e => e.data)
                             .flat()
                             .filter((e, i, a) => i === a.findIndex(t => t.url === e.url));
@@ -126,21 +126,18 @@ export default async function generateNewsSummaries(): Promise<NewsSummary[]> {
         return await executeDebateFlow(summary, synthesisedReports[index]);
     }));
 
-    const allImages = researchSpec
-        .topics
-        .map(e => e
-            .articles
-            .map(e => e.replace(/[^0-9]+/g, ''))
-            .map(e => parseFloat(e))
-            .map(e => articleData[e].image_url)
-        )
-        .flat();
+    const allImages = Array.from(new Set(articleData.map(e => e.image_url)));
 
     const res: NewsSummary[] = [];
     for (let i = 0; i < debateFlows.length; i++){
         const debate = debateFlows[i];
 
-        const availableImagesHere = articleData.map(e => e.image_url).flat();
+        const availableImagesHere = researchSpec
+            .topics[i]
+            .articles
+            .map(e => e.replace(/[^0-9]+/g, ''))
+            .map(e => parseFloat(e))
+            .map(e => articleData[e].image_url);
 
         let newImage = availableImagesHere.find(url => !res.some(comp => comp.image === url)) ||
             allImages.find(url => !res.some(comp => comp.image === url)) ||

@@ -11,10 +11,11 @@ export interface NewsArticle {
     url: string;
     image_url: string;
     language: LangCode;
-    publishedAt: string;
+    published_at: string;
     source: string;
     categories: NewsCategory[];
     relevance_score: number;
+    locale: string;
 }
 
 export interface NewsResponse {
